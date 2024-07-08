@@ -1,0 +1,35 @@
+spring:
+    application:
+        name: api-gateway
+    cloud:
+        gateway:
+            routes:
+                - id: catalog-service
+                  uri: lb://catalog-service
+                  predicates:
+                    - Path=/catalog-api/**
+                - id: order-service
+                  uri: lb://order-service
+                  predicates:
+                    - Path=/order-api/**
+                - id: discovery-server
+                  uri: http://localhost:8761
+                  predicates:
+                    - Path=/eureka/web
+                  filters:
+                    - SetPath=/
+                - id : discovery-server-static
+                  uri: http://localhost:8761
+                  predicates:
+                    - Path=/eureka/**
+server:
+    port: 8000
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+
+
+

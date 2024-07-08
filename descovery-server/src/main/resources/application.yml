@@ -1,0 +1,27 @@
+spring:
+    application:
+        name: discovery-server
+    cloud:
+        discovery:
+            client:
+                simple:
+                    instances:
+                        catalog-service:
+                            - uri: http://localhost:8081
+
+server:
+    port: 8761
+
+eureka:
+    client:
+        register-with-eureka: false
+        fetch-registry: false
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+
+# logging:
+#   level:
+#     org.springframework.web: DEBUG
+#     org.springframework.cloud.netflix.eureka: DEBUG
+#     io.netty: DEBUG
+
